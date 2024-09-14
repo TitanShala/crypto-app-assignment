@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export default function Products() {
+export default function Cryptos() {
   return (
     <View>
-      <Text>Products</Text>
+      <Text>Cryptos</Text>
     </View>
   );
 }
