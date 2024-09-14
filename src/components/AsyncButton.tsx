@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import {
   Animated,
   GestureResponderEvent,
@@ -29,7 +29,7 @@ export function AsyncButton({
       toValue: 1,
       duration: 1000,
       useNativeDriver: false,
-    }).start(({finished}) => {
+    }).start(({ finished }) => {
       if (!finished) {
         return;
       }

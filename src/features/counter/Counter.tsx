@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {AsyncButton} from '../../components/AsyncButton';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { AsyncButton } from '../../components/AsyncButton';
 import {
   decrement,
   increment,
@@ -21,50 +21,52 @@ export function Counter() {
 
   // The `state` arg is correctly typed as `RootState` already
   const count = useAppSelector(selectCount);
-  const status = useAppSelector((state) => state.counter.status);
+  const status = useAppSelector(state => state.counter.status);
   const dispatch = useAppDispatch();
 
   return (
-    <View>
-      <View style={styles.row}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => dispatch(increment())}>
-          <Text style={styles.buttonText}>+</Text>
-        </TouchableOpacity>
-        <Text style={styles.value}>{count}</Text>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => dispatch(decrement())}>
-          <Text style={styles.buttonText}>-</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.row}>
-        <TextInput
-          style={styles.textbox}
-          value={incrementAmount}
-          keyboardType="numeric"
-          onChangeText={setIncrementAmount}
-        />
-        <View>
+    <>
+      <View>
+        <View style={styles.row}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() =>
-              dispatch(incrementByAmount(Number(incrementAmount) || 0))
-            }>
-            <Text style={styles.buttonText}>Add Amount</Text>
+            onPress={() => dispatch(increment())}>
+            <Text style={styles.buttonText}>+</Text>
           </TouchableOpacity>
-          <AsyncButton
+          <Text style={styles.value}>{count}</Text>
+          <TouchableOpacity
             style={styles.button}
-            disabled={status !== 'idle'}
-            onPress={() =>
-              dispatch(incrementAsync(Number(incrementAmount) || 0))
-            }>
-            <Text style={styles.buttonText}>Add Async</Text>
-          </AsyncButton>
+            onPress={() => dispatch(decrement())}>
+            <Text style={styles.buttonText}>-</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.row}>
+          <TextInput
+            style={styles.textbox}
+            value={incrementAmount}
+            keyboardType="numeric"
+            onChangeText={setIncrementAmount}
+          />
+          <View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() =>
+                dispatch(incrementByAmount(Number(incrementAmount) || 0))
+              }>
+              <Text style={styles.buttonText}>Add Amount</Text>
+            </TouchableOpacity>
+            <AsyncButton
+              style={styles.button}
+              disabled={status !== 'idle'}
+              onPress={() =>
+                dispatch(incrementAsync(Number(incrementAmount) || 0))
+              }>
+              <Text style={styles.buttonText}>Add Async</Text>
+            </AsyncButton>
+          </View>
         </View>
       </View>
-    </View>
+    </>
   );
 }
 
