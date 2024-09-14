@@ -10,7 +10,7 @@ export interface SuccessResponse {
   message: string;
 }
 
-const domain = '';
+const domain = 'https://app.youhodler.com/api/v3';
 
 export async function apiRequest<D = {}, R = unknown>({
   url,
@@ -25,3 +25,7 @@ export async function apiRequest<D = {}, R = unknown>({
     params,
   });
 }
+
+export const API_PATH = {
+  cryptos: 'rates/extended',
+};

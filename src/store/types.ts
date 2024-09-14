@@ -1,12 +1,10 @@
-export interface Crypto {
-  symbol: string;
-  rate: number;
-  ask: number;
-  bid: number;
-  diff24h: number;
-}
+import { CryptoRatesResponse } from '../api/crypto/types';
+
+export interface Crypto extends CryptoRatesResponse {}
 
 export interface AppState {
+  loading: boolean;
+  error: string | null;
   cryptos: Crypto[];
   selectedCrypto: Crypto | null;
 }
