@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Crypto, AppState } from '../types';
+import { AppState } from '../types';
 import { fetchCryptos } from '../../api/crypto';
+import { CryptocurrencyPairs, CryptoDataMap } from '../../api/crypto/types';
 
 const initialState: AppState = {
   loading: true,
   error: null,
-  cryptos: [],
+  cryptos: null,
   selectedCrypto: null,
 };
 
@@ -13,10 +14,13 @@ const cryptoSlice = createSlice({
   name: 'crypto',
   initialState,
   reducers: {
-    setCryptos(state, action: PayloadAction<Crypto[]>) {
+    setCryptos(state, action: PayloadAction<CryptoDataMap>) {
       state.cryptos = action.payload;
     },
-    setSelectedCrypto(state, action: PayloadAction<Crypto | null>) {
+    setSelectedCrypto(
+      state,
+      action: PayloadAction<CryptocurrencyPairs | null>,
+    ) {
       state.selectedCrypto = action.payload;
     },
   },
@@ -27,9 +31,8 @@ const cryptoSlice = createSlice({
     });
     builder.addCase(fetchCryptosThunk.fulfilled, (state, action) => {
       state.loading = false;
-      const stringified = JSON.stringify(action.payload);
-      const cutted = stringified.slice(0, 500);
-      console.log(cutted);
+      state.error = null;
+
       state.cryptos = action.payload;
     });
     builder.addCase(fetchCryptosThunk.rejected, (state, action) => {
