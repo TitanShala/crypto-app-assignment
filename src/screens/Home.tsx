@@ -1,27 +1,16 @@
-import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
-
-import { fetchCryptosThunk } from '../store/slices/cryptoSlices';
-import { useAppDispatch, useAppSelector } from '../store';
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
-  const dispatch = useAppDispatch();
-  const { cryptos, loading, error } = useAppSelector(state => state.crypto);
-
-  useEffect(() => {
-    // dispatch(fetchCryptosThunk());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (loading) return <Text>Loading...</Text>;
-
-  if (error) return <Text>{error}</Text>;
+  const navigation = useNavigation<any>();
 
   return (
     <View>
-      {
-        //TODO: Display cryptos
-      }
+      <Text>Home</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Cryptos')}>
+        <Text>Go to Cryptos</Text>
+      </TouchableOpacity>
     </View>
   );
 }
