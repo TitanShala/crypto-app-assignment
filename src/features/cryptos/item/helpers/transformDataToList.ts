@@ -2,9 +2,10 @@ import {
   CryptoDataMap,
   CryptoWithUsdValue,
 } from '../../../../api/crypto/types';
+import calculatePercentageDifference from './calculatePercentageDiff';
 
 function transformDataToCryptoItems(data: CryptoDataMap): CryptoWithUsdValue[] {
-  // Create an array of CryptoItem from the data
+  // Create an array of CryptoWithUsdValue from the data
   return Object.entries(data)
     .map(([symbol, pairs]) => {
       // Find the USD pair within the pairs object
@@ -14,14 +15,20 @@ function transformDataToCryptoItems(data: CryptoDataMap): CryptoWithUsdValue[] {
       if (usdPair) {
         return {
           symbol,
-          usdValue: usdPair, // Using 'rate' as the USD value
-        };
+          usdValue: {
+            ...usdPair,
+            diff24hPercentage: calculatePercentageDifference(
+              usdPair.rate - usdPair.diff24h,
+              usdPair.rate,
+            ),
+          },
+        } as CryptoWithUsdValue; // Cast to CryptoWithUsdValue
       }
 
-      // Return null if no USD pair exists for this symbol
+      // If no USD pair exists, exclude this entry
       return null;
     })
-    .filter((item): item is CryptoWithUsdValue => item !== null); // Filter out any null values
+    .filter((item): item is CryptoWithUsdValue => item !== null); // Type guard to filter out null values
 }
 
 export default transformDataToCryptoItems;

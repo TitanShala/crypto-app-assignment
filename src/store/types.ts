@@ -1,8 +1,8 @@
-import { CryptoDataMap, CryptocurrencyPairs } from '../api/crypto/types';
+import { CryptoWithUsdValue, CryptocurrencyPairs } from '../api/crypto/types';
 
 export interface AppState {
   loading: boolean;
   error: string | null;
-  cryptos: CryptoDataMap | null;
+  cryptos: CryptoWithUsdValue[] | null;
   selectedCrypto: CryptocurrencyPairs | null;
 }

@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { CryptoWithUsdValue } from '../api/crypto/types';
 import formatUsdValue from '../features/cryptos/item/helpers/formatUsdValue';
-import calculatePercentageDifference from '../features/cryptos/item/helpers/calculatePercentageDiff';
 
 interface Props {
   route: {
@@ -15,15 +14,14 @@ interface Props {
 
 export default function Details({ route }: Props) {
   const { data } = route.params;
-  const { ask, bid, diff24h, rate } = data.usdValue;
+  const { ask, bid, diff24h, rate, diff24hPercentage } = data.usdValue;
 
   // Format values for display
   const formattedAsk = formatUsdValue(ask);
   const formattedBid = formatUsdValue(bid);
   const formattedRate = formatUsdValue(rate);
-  const percentageDiff = calculatePercentageDifference(rate - diff24h, rate);
   const formattedDiff =
-    percentageDiff > 0 ? `+${percentageDiff}` : percentageDiff;
+    diff24h > 0 ? `+${diff24hPercentage}` : diff24hPercentage;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

@@ -5,7 +5,6 @@ import { CryptoWithUsdValue } from '../../../api/crypto/types';
 import formatUsdValue from './helpers/formatUsdValue';
 import { useAppNavigation } from '../../../navigation';
 import { ScreenName } from '../../../navigation/types';
-import calculatePercentageDifference from './helpers/calculatePercentageDiff';
 
 interface Props {
   data: CryptoWithUsdValue;
@@ -14,10 +13,9 @@ interface Props {
 const Item: React.FC<Props> = ({ data }) => {
   const navigation = useAppNavigation(); // Get navigation from hook
   const { symbol, usdValue } = data;
-  const { rate, diff24h } = usdValue;
+  const { rate, diff24h, diff24hPercentage } = usdValue;
 
   const formattedRate = formatUsdValue(rate);
-  const formattedDiff = calculatePercentageDifference(rate - diff24h, rate);
 
   const navigateToDetails = () => {
     navigation.navigate(ScreenName.Details, { data: data });
@@ -38,9 +36,9 @@ const Item: React.FC<Props> = ({ data }) => {
           <Text
             style={[
               styles.text,
-              formattedDiff >= 0 ? styles.positive : styles.negative,
+              diff24h >= 0 ? styles.positive : styles.negative,
             ]}>
-            24h: {formattedDiff}%
+            24h: {diff24hPercentage}%
           </Text>
         </View>
       </LinearGradient>

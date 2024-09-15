@@ -4,6 +4,7 @@ export interface CryptoPriceData {
   ask: number; // The price at which you can buy the cryptocurrency
   bid: number; // The price at which you can sell the cryptocurrency
   diff24h: number; // The change in price over the last 24 hours
+  diff24hPercentage?: number; // The change in price over the last 24 hours in percentage
 }
 
 // Represents the price data in usd for a cryptocurrency with its symbol
