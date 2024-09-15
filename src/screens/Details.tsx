@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { CryptoWithUsdValue } from '../api/crypto/types';
-import formatUsdValue from '../features/cryptos/item/helpers/formatUsdValue';
 
 interface Props {
   route: {
@@ -17,9 +16,6 @@ export default function Details({ route }: Props) {
   const { ask, bid, diff24h, rate, diff24hPercentage } = data.usdValue;
 
   // Format values for display
-  const formattedAsk = formatUsdValue(ask);
-  const formattedBid = formatUsdValue(bid);
-  const formattedRate = formatUsdValue(rate);
   const formattedDiff =
     diff24h > 0 ? `+${diff24hPercentage}` : diff24hPercentage;
 
@@ -29,25 +25,35 @@ export default function Details({ route }: Props) {
         colors={['#4c669f', '#3b5998', '#192f5d']} // Gradient colors for the header
         style={styles.header}>
         <Text style={styles.symbol}>{data.symbol}</Text>
-        <Text style={styles.rate}>Rate: ${formattedRate}</Text>
+        <Text style={styles.rate}>Rate: ${rate}</Text>
       </LinearGradient>
       <View style={styles.detailsContainer}>
         <View style={styles.detailItem}>
           <Text style={styles.detailLabel}>Ask Price:</Text>
-          <Text style={styles.detailValue}>${formattedAsk}</Text>
+          <Text style={styles.detailValue}>${ask}</Text>
         </View>
         <View style={styles.detailItem}>
           <Text style={styles.detailLabel}>Bid Price:</Text>
-          <Text style={styles.detailValue}>${formattedBid}</Text>
+          <Text style={styles.detailValue}>${bid}</Text>
         </View>
         <View style={styles.detailItem}>
-          <Text style={styles.detailLabel}>24h Change:</Text>
+          <Text style={styles.detailLabel}>24h Change %:</Text>
           <Text
             style={[
               styles.detailValue,
               diff24h >= 0 ? styles.positive : styles.negative,
             ]}>
             {formattedDiff}%
+          </Text>
+        </View>
+        <View style={styles.detailItem}>
+          <Text style={styles.detailLabel}>24h Change $:</Text>
+          <Text
+            style={[
+              styles.detailValue,
+              diff24h >= 0 ? styles.positive : styles.negative,
+            ]}>
+            ${diff24h}
           </Text>
         </View>
       </View>

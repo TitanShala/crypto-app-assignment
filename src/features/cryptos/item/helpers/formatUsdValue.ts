@@ -1,20 +1,45 @@
 function formatUsdValue(value: number | string) {
   const isString = typeof value === 'string';
-  const newValue = isString ? parseFloat(value) : value;
+  const numberValue = isString ? parseFloat(value) : value;
+  const stringValue = !isString ? value.toString() : value;
 
-  if (newValue < 10) {
-    return newValue.toFixed(3);
+  //Check for number in scientific notation like 1e-7
+  if (stringValue.includes('e-')) {
+    const [num, negativeIndex] = stringValue.toLocaleLowerCase().split('e-');
+    const scaledNum = parseFloat(num) / Math.pow(10, parseInt(negativeIndex));
+    return scaledNum.toFixed(parseInt(negativeIndex));
   }
 
-  if (newValue < 100) {
-    return newValue.toFixed(2);
+  //This function is used to display a very low number with at least one positive digit
+  if (numberValue < 0.001) {
+    let positiveIndex = 0;
+
+    for (let i = 0; i < stringValue.length; i++) {
+      if (stringValue[i] !== '0' && stringValue[i] !== '.') {
+        positiveIndex = i;
+        break;
+      }
+    }
+
+    if (positiveIndex > 1) {
+      return numberValue.toFixed(positiveIndex - 1);
+    }
+    return numberValue;
   }
 
-  if (newValue < 1000) {
-    return newValue.toFixed(1);
+  if (numberValue < 10) {
+    return numberValue.toFixed(3);
   }
 
-  return newValue.toFixed(0);
+  if (numberValue < 100) {
+    return numberValue.toFixed(2);
+  }
+
+  if (numberValue < 1000) {
+    return numberValue.toFixed(1);
+  }
+
+  return numberValue.toFixed(0);
 }
 
 export default formatUsdValue;

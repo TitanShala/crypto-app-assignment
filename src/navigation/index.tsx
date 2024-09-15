@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  NavigationContainer,
-  NavigationProp,
-  useNavigation,
-} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { RootStackParamList, ScreenName } from './types';
@@ -24,8 +20,4 @@ export default function Navigation() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
-
-export function useAppNavigation() {
-  return useNavigation<NavigationProp<RootStackParamList>>();
 }

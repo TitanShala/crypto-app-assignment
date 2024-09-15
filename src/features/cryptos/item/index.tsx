@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient'; // Import from expo-linear-gradient
+import { LinearGradient } from 'expo-linear-gradient';
 import { CryptoWithUsdValue } from '../../../api/crypto/types';
 import formatUsdValue from './helpers/formatUsdValue';
-import { useAppNavigation } from '../../../navigation';
+
 import { ScreenName } from '../../../navigation/types';
+import { useAppNavigation } from '../../../navigation/hooks/useAppNavigation';
 
 interface Props {
   data: CryptoWithUsdValue;

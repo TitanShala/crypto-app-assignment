@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useAppDispatch } from '../store';
 import { fetchCryptosThunk } from '../store/slices/cryptoSlices';
-import { useAppNavigation } from '../navigation';
+
 import { ScreenName } from '../navigation/types';
+import { useAppNavigation } from '../navigation/hooks/useAppNavigation';
 
 const Home = () => {
   const navigation = useAppNavigation(); // Get navigation from hook
