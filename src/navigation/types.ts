@@ -1,3 +1,5 @@
+import { CryptoWithUsdValue } from '../api/crypto/types';
+
 /* eslint-disable no-unused-vars */
 export enum ScreenName {
   Home = 'Home',
@@ -8,5 +10,5 @@ export enum ScreenName {
 export type RootStackParamList = {
   [ScreenName.Home]: undefined;
   [ScreenName.Cryptos]: undefined;
-  [ScreenName.Details]: { id: string };
+  [ScreenName.Details]: { data: CryptoWithUsdValue };
 };
